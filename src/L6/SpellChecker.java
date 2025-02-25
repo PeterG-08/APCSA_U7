@@ -56,29 +56,27 @@ public class SpellChecker
         int lower = 0;
         int upper = dictionary.size() - 1;
 
-        System.out.println(lower + ((upper - lower) / 2));
+        int numchecks = 0;
 
-        while (true) {
-            int idx = lower + ((upper - lower) / 2);
+        while (lower + 1 != upper) {
+            numchecks ++;
 
-//            System.out.println(idx);
+            int idx = (lower + upper) / 2;
 
-            if (dictionary.get(idx).compareTo(word) > 0) {
-                lower = idx;
-            }
-
-            else if (dictionary.get(idx).compareTo(word) < 0) {
+            if (word.compareTo(dictionary.get(idx)) < 0) {
                 upper = idx;
             }
 
-            else {
-                return true;
+            else if (word.compareTo(dictionary.get(idx)) > 0) {
+                lower = idx;
             }
 
-            if (upper == lower) {
-                return false;
-            }
+            if (dictionary.get(idx).equals(word)) { System.out.println("CHECKS: " + numchecks); return true; }
         }
+
+        System.out.println("CHECKS: " + numchecks);
+
+        return false;
     }
 
     public void importDictionary()
